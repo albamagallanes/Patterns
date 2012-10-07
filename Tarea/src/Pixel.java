@@ -8,7 +8,7 @@ public class Pixel {
 	Boolean isBoundary = false;
 	Boolean startPixel = false;
 	
-	public Pixel(int val, int posy,int posx) {
+	public Pixel(int val, int posx,int posy) {
 		// TODO Auto-generated constructor stub
 		this.value = val;
 		this.x = posx;
@@ -86,10 +86,65 @@ public class Pixel {
 		return 8;
 	}
 	
-	public void actualizaVecinos(ArrayList<Pixel> pixels){
-		for(Pixel temp : pixels){
-			this.setVecino(temp);
-		}
+	public void actualizaVecinos(ArrayList<Pixel> pixels, Pixel[][] Matrix){
+		try{
+			if(Matrix[this.x-1][this.y] != null){ //vecinos en 0
+				Pixel temp = Matrix[this.x-1][this.y];
+				setVecino(temp);
+			}
+		}catch(Exception e){}
+		try{
+			if(Matrix[this.x-1][this.y-1] != null){ //vecinos en 1
+				Pixel temp = Matrix[this.x-1][this.y-1];
+				setVecino(temp);
+			}	
+		}catch(Exception e){}
+		try{
+			if(Matrix[this.x][this.y-1] != null){ //vecinos en 2
+				Pixel temp = Matrix[this.x][this.y-1];
+				setVecino(temp);
+			}
+		}catch(Exception e){}
+		try{
+			if(Matrix[this.x+1][this.y-1] != null){ //vecinos en 3
+				Pixel temp = Matrix[this.x+1][this.y-1];
+				setVecino(temp);
+			}
+		}catch(Exception e){}
+		try{
+			if(Matrix[this.x+1][this.y] != null){ //vecinos en 4
+				Pixel temp = Matrix[this.x+1][this.y];
+				setVecino(temp);
+			}
+		}catch(Exception e){}
+		try{
+			if(Matrix[this.x+1][this.y+1] != null){ //vecinos en 5
+				Pixel temp = Matrix[this.x+1][this.y+1];
+				setVecino(temp);
+			}
+		}catch(Exception e){}
+		try{
+			if(Matrix[this.x][this.y+1] != null){ //vecinos en 6
+				Pixel temp = Matrix[this.x][this.y+1];
+				setVecino(temp);
+			}
+		}catch(Exception e){}
+		try{
+			if(Matrix[this.x-1][this.y+1] != null){ //vecinos en 7
+				Pixel temp = Matrix[this.x-1][this.y+1];
+				setVecino(temp);
+			}
+		}catch(Exception e){}
+		
+		//System.out.println("pixel "+this.x+""+y);
+		/*for(int i=0; i<vecinitos.length; i++){
+			if(vecinitos[i] != null){
+				System.out.println( i+" "+vecinitos[i].x+","+vecinitos[i].y);
+			}
+			else{
+				System.out.println( i+" null");
+			}
+		}*/
 	}
 	
 	public Pixel getVecinoClock(){
@@ -97,6 +152,8 @@ public class Pixel {
 		Pixel previous= null;
 		for(int i=0; i< this.vecinitos.length; i++){
 			Pixel tempVecino = this.vecinitos[i];
+			if(tempVecino==null){ continue; }
+			//System.out.println("Ve "+i+" - "+tempVecino.value);
 			if(i == 0){
 				previous = this.vecinitos[7];
 			}
@@ -125,5 +182,6 @@ public class Pixel {
 			}
 		}
 	}
+	
 
 }
