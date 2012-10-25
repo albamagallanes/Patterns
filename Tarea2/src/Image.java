@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JTextArea;
 import javax.swing.table.TableModel;
 
 import net.sf.image4j.codec.bmp.BMPDecoder;
@@ -832,7 +833,7 @@ public class Image {
 	    return histo;
 	}
 	
-	public void treat100Images(){
+	public void treat100Images(JTextArea consola){
 		System.out.println("Segmentar Imagenes");
 		for(int j=1; j<=5; j++){
 			for(int i=1; i<21; i++){
@@ -853,7 +854,7 @@ public class Image {
 
 				int otsuObjectsEtiq = this.etiquetaYCuenta(matrixOtsu);
 				
-				System.out.print(pathName+",");
+				//System.out.print(pathName+",");
 				//System.out.println("Object "+otsuObjectsEtiq);
 				int regionToBeCalculated=0;
 				int tempRegion=0;
@@ -869,12 +870,22 @@ public class Image {
 				//System.out.print("Object "+regionToBeCalculated);
 				Point temp1= this.getCentroide(regionToBeCalculated);
 				imageOtsuResult = this.pintaCruz((int)temp1.x, (int)temp1.y, imageOtsuResult);
-				System.out.print(this.getHu1(regionToBeCalculated)+",");
-				System.out.print(this.getHu2(regionToBeCalculated)+",");
-				System.out.print(this.getFS1(regionToBeCalculated)+",");
-				System.out.print(this.getFS2(regionToBeCalculated)+",");
-				System.out.print(this.getFS3(regionToBeCalculated)+",");
-				System.out.println(this.getFS4(regionToBeCalculated)+",");
+				double hu1 = this.getHu1(regionToBeCalculated);
+				//System.out.print(hu1+",");
+				double hu2 = this.getHu2(regionToBeCalculated);
+				//System.out.print(hu2+",");
+				double Fs1 = this.getFS1(regionToBeCalculated);
+				//System.out.print(Fs1+",");
+				double Fs2 = this.getFS2(regionToBeCalculated);
+				//System.out.print(Fs2+",");
+				double Fs3 = this.getFS3(regionToBeCalculated);
+				//System.out.print(Fs3+",");
+				double Fs4 = this.getFS4(regionToBeCalculated);
+				//System.out.println(Fs4+",");
+				//consola.append(pathName+",	"+hu1+",	"+hu2+",	"+Fs1+",	"+Fs2+",	"+Fs3+",	"+Fs4 +"\n");
+				String lola = String.format("%s,  %.10f,%.10f,%.10f,%.10f,%.10f,%.10f \n",pathName,hu1,hu2,Fs1,Fs2,Fs3,Fs4);
+				consola.append(lola);
+				System.out.print(lola);
 			}
 		}
 	}
