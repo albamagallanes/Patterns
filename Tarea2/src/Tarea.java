@@ -47,6 +47,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.UIManager;
+import javax.swing.JTextArea;
 
 
 
@@ -129,210 +130,23 @@ public class Tarea {
 		
 		SpringLayout sl_panel6 = new SpringLayout();
 		panel6.setLayout(sl_panel6);
-		
-		final JLabel lbImage = new JLabel("        ");
-		sl_panel6.putConstraint(SpringLayout.EAST, lbImage, -10, SpringLayout.EAST, panel6);
-		lbImage.setBackground(new Color(255, 240, 245));
-		lbImage.setBorder(border);
-		sl_panel6.putConstraint(SpringLayout.NORTH, lbImage, 10, SpringLayout.NORTH, panel6);
-		sl_panel6.putConstraint(SpringLayout.SOUTH, lbImage, -338, SpringLayout.SOUTH, panel6);
-		panel6.add(lbImage);
-		
-		final JLabel lbImageOtsuResult = new JLabel("");
-		lbImageOtsuResult.setForeground(Color.RED);
-		sl_panel6.putConstraint(SpringLayout.WEST, lbImage, 69, SpringLayout.EAST, lbImageOtsuResult);
-		lbImageOtsuResult.setBackground(Color.WHITE);
-		lbImageOtsuResult.setBorder(border);
-		lbImageOtsuResult.setToolTipText("Otsu");
-		sl_panel6.putConstraint(SpringLayout.WEST, lbImageOtsuResult, 10, SpringLayout.WEST, panel6);
-		sl_panel6.putConstraint(SpringLayout.EAST, lbImageOtsuResult, -471, SpringLayout.EAST, panel6);
-		sl_panel6.putConstraint(SpringLayout.SOUTH, lbImageOtsuResult, -334, SpringLayout.SOUTH, panel6);
-		sl_panel6.putConstraint(SpringLayout.NORTH, lbImageOtsuResult, 14, SpringLayout.NORTH, panel6);
-		panel6.add(lbImageOtsuResult);
 				
-		final JLabel lbImageKittlerResult = new JLabel("");
-		sl_panel6.putConstraint(SpringLayout.WEST, lbImageKittlerResult, 10, SpringLayout.WEST, panel6);
-		sl_panel6.putConstraint(SpringLayout.SOUTH, lbImageKittlerResult, -56, SpringLayout.SOUTH, panel6);
-		lbImageKittlerResult.setToolTipText("Kittler");
-		lbImageKittlerResult.setBackground(new Color(255, 228, 225));
-		lbImageKittlerResult.setBorder(border);
-		panel6.add(lbImageKittlerResult);
-		
-		final JLabel lbImageSahooResult = new JLabel("        ");
-		sl_panel6.putConstraint(SpringLayout.NORTH, lbImageSahooResult, 0, SpringLayout.NORTH, lbImageKittlerResult);
-		sl_panel6.putConstraint(SpringLayout.WEST, lbImageSahooResult, 159, SpringLayout.EAST, lbImageKittlerResult);
-		sl_panel6.putConstraint(SpringLayout.SOUTH, lbImageSahooResult, -72, SpringLayout.SOUTH, panel6);
-		sl_panel6.putConstraint(SpringLayout.EAST, lbImageSahooResult, 0, SpringLayout.EAST, lbImage);
-		lbImageSahooResult.setToolTipText("Sahoo");
-		lbImageSahooResult.setBackground(new Color(255, 240, 245));
-		lbImageSahooResult.setBorder(border);
-		panel6.add(lbImageSahooResult);
 				
-				JButton btnNewButton_1 = new JButton("Change");
-				btnNewButton_1.setEnabled(false);
-				sl_panel6.putConstraint(SpringLayout.NORTH, btnNewButton_1, 6, SpringLayout.SOUTH, lbImage);
-				sl_panel6.putConstraint(SpringLayout.WEST, btnNewButton_1, 575, SpringLayout.WEST, panel6);
-				btnNewButton_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						image.segmenta100Imagenes();
-					}
-				});
-				panel6.add(btnNewButton_1);
 				
-				JLabel lbOtsu = new JLabel("Otsu Value");
-				sl_panel6.putConstraint(SpringLayout.NORTH, lbImageKittlerResult, 6, SpringLayout.SOUTH, lbOtsu);
-				sl_panel6.putConstraint(SpringLayout.EAST, lbOtsu, -503, SpringLayout.WEST, btnNewButton_1);
-				lbOtsu.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lbOtsu);
+				final JTextArea consoleArea = new JTextArea();
+				sl_panel6.putConstraint(SpringLayout.NORTH, consoleArea, 44, SpringLayout.NORTH, panel6);
+				sl_panel6.putConstraint(SpringLayout.WEST, consoleArea, 10, SpringLayout.WEST, panel6);
+				sl_panel6.putConstraint(SpringLayout.SOUTH, consoleArea, 284, SpringLayout.NORTH, panel6);
+				sl_panel6.putConstraint(SpringLayout.EAST, consoleArea, 414, SpringLayout.WEST, panel6);
 				
-				final JLabel lov = new JLabel("0");
-				sl_panel6.putConstraint(SpringLayout.WEST, lov, 9, SpringLayout.EAST, lbOtsu);
-				sl_panel6.putConstraint(SpringLayout.EAST, lov, 49, SpringLayout.EAST, lbOtsu);
-				lov.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lov);
+				consoleArea.setEditable(false);
+				consoleArea.setText("HeLlo");
+				panel6.add(consoleArea);
 				
-				JLabel lblObjetos = new JLabel("# Objetos");
-				sl_panel6.putConstraint(SpringLayout.SOUTH, lblObjetos, -6, SpringLayout.NORTH, lbImageKittlerResult);
-				lblObjetos.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lblObjetos);
-				
-				final JLabel loo = new JLabel("0");
-				sl_panel6.putConstraint(SpringLayout.NORTH, loo, 273, SpringLayout.NORTH, panel6);
-				sl_panel6.putConstraint(SpringLayout.WEST, loo, 277, SpringLayout.WEST, panel6);
-				sl_panel6.putConstraint(SpringLayout.EAST, loo, -265, SpringLayout.WEST, btnNewButton_1);
-				sl_panel6.putConstraint(SpringLayout.EAST, lblObjetos, -6, SpringLayout.WEST, loo);
-				loo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(loo);
-				
-				JLabel lblKittlerValue = new JLabel("Kittler Value");
-				sl_panel6.putConstraint(SpringLayout.NORTH, lblKittlerValue, 6, SpringLayout.SOUTH, lbImageKittlerResult);
-				sl_panel6.putConstraint(SpringLayout.WEST, lblKittlerValue, 10, SpringLayout.WEST, panel6);
-				lblKittlerValue.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lblKittlerValue);
-				
-				final JLabel lko = new JLabel("0");
-				sl_panel6.putConstraint(SpringLayout.NORTH, lko, 6, SpringLayout.SOUTH, lbImageKittlerResult);
-				sl_panel6.putConstraint(SpringLayout.WEST, lko, 270, SpringLayout.WEST, panel6);
-				sl_panel6.putConstraint(SpringLayout.EAST, lko, -471, SpringLayout.EAST, panel6);
-				lko.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lko);
-				
-				JLabel label_4 = new JLabel("# Objetos");
-				sl_panel6.putConstraint(SpringLayout.NORTH, label_4, 0, SpringLayout.NORTH, lblKittlerValue);
-				sl_panel6.putConstraint(SpringLayout.EAST, label_4, -12, SpringLayout.WEST, lko);
-				label_4.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(label_4);
-				
-				final JLabel lkv = new JLabel("0");
-				sl_panel6.putConstraint(SpringLayout.NORTH, lkv, 6, SpringLayout.SOUTH, lbImageKittlerResult);
-				sl_panel6.putConstraint(SpringLayout.WEST, lkv, 1, SpringLayout.EAST, lblKittlerValue);
-				sl_panel6.putConstraint(SpringLayout.EAST, lkv, -95, SpringLayout.WEST, label_4);
-				lkv.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lkv);
-				
-				final JLabel lsv = new JLabel("0");
-				sl_panel6.putConstraint(SpringLayout.NORTH, lsv, 6, SpringLayout.SOUTH, lbImageSahooResult);
-				lsv.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lsv);
-				
-				JLabel label_6 = new JLabel("# Objetos");
-				sl_panel6.putConstraint(SpringLayout.NORTH, label_6, 0, SpringLayout.NORTH, lsv);
-				label_6.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(label_6);
-				
-				final JLabel lso = new JLabel("0");
-				sl_panel6.putConstraint(SpringLayout.EAST, label_6, -6, SpringLayout.WEST, lso);
-				sl_panel6.putConstraint(SpringLayout.WEST, lso, -33, SpringLayout.EAST, lbImage);
-				sl_panel6.putConstraint(SpringLayout.NORTH, lso, 6, SpringLayout.SOUTH, lbImageSahooResult);
-				sl_panel6.putConstraint(SpringLayout.EAST, lso, 0, SpringLayout.EAST, lbImage);
-				lso.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lso);
-				
-				JLabel lblSahooValue = new JLabel("Sahoo Value");
-				sl_panel6.putConstraint(SpringLayout.EAST, lbImageKittlerResult, -157, SpringLayout.WEST, lblSahooValue);
-				sl_panel6.putConstraint(SpringLayout.WEST, lsv, 6, SpringLayout.EAST, lblSahooValue);
-				sl_panel6.putConstraint(SpringLayout.EAST, lsv, 39, SpringLayout.EAST, lblSahooValue);
-				sl_panel6.putConstraint(SpringLayout.NORTH, lblSahooValue, 6, SpringLayout.SOUTH, lbImageSahooResult);
-				sl_panel6.putConstraint(SpringLayout.WEST, lblSahooValue, 0, SpringLayout.WEST, lbImage);
-				lblSahooValue.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-				panel6.add(lblSahooValue);
-				
-				JButton btnLoadimage = new JButton("loadImage");
-				sl_panel6.putConstraint(SpringLayout.SOUTH, lov, 0, SpringLayout.SOUTH, btnLoadimage);
-				sl_panel6.putConstraint(SpringLayout.NORTH, lbOtsu, -14, SpringLayout.SOUTH, btnLoadimage);
-				sl_panel6.putConstraint(SpringLayout.SOUTH, lbOtsu, 0, SpringLayout.SOUTH, btnLoadimage);
-				sl_panel6.putConstraint(SpringLayout.EAST, btnNewButton_1, -8, SpringLayout.WEST, btnLoadimage);
-				sl_panel6.putConstraint(SpringLayout.NORTH, btnLoadimage, 6, SpringLayout.SOUTH, lbImage);
-				sl_panel6.putConstraint(SpringLayout.EAST, btnLoadimage, 0, SpringLayout.EAST, lbImage);
-				btnLoadimage.addActionListener(new ActionListener() {
-					
-					public void actionPerformed(ActionEvent e) {
-						String filename = File.separator+"imagenes";
-						JFileChooser fc = new JFileChooser(new File(filename));
-
-						// Show open dialog; this method does not return until the dialog is closed
-						fc.showOpenDialog(frmTarea);
-						File selFile = fc.getSelectedFile();
-						
-						BufferedImage imageLoad = null;
-						try {
-							imageLoad = BMPDecoder.read(selFile);
-							ImageIcon iconOriginal = new ImageIcon(imageLoad);
-							lbImage.setIcon(iconOriginal);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						try {
-							BufferedImage imageLoadOtsu = BMPDecoder.read(selFile);
-							int number = image.otsuMagicMethod(imageLoadOtsu);
-							BufferedImage imageOtsuResult = image.umbralIt(imageLoadOtsu, number);//150
-							ImageIcon iconOtsu = new ImageIcon(imageOtsuResult);
-							lbImageOtsuResult.setIcon(iconOtsu);
-							lov.setText(Integer.toString(number));
-							Pixel [][] matrixOtsu = image.convertBItoPM(imageOtsuResult);
-							int otsuObjects = image.cuentaObjetos(matrixOtsu);
-							loo.setText(Integer.toString(otsuObjects));
-							
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						
-						try {
-							BufferedImage imageLoadKittler = BMPDecoder.read(selFile);
-							int numberKI = image.kittlerIllingworthMethod(imageLoadKittler);
-							BufferedImage imageKittlerResult = image.umbralIt(imageLoadKittler, numberKI);//150
-							ImageIcon iconKittler = new ImageIcon(imageKittlerResult);
-							lbImageKittlerResult.setIcon(iconKittler);
-							lkv.setText(Integer.toString(numberKI));
-							Pixel [][] matrixKittler = image.convertBItoPM(imageKittlerResult);
-							int kittlerObjects = image.cuentaObjetos(matrixKittler);
-							lko.setText(Integer.toString(kittlerObjects));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						try {
-							BufferedImage imageLoadSahoo = BMPDecoder.read(selFile);
-							int numberS = image.magicianSahooMethod(imageLoadSahoo, 0.15);
-							BufferedImage imageSahooResult = image.umbralIt(imageLoadSahoo, numberS);//150
-							ImageIcon iconSahoo = new ImageIcon(imageSahooResult);
-							lbImageSahooResult.setIcon(iconSahoo);
-							lsv.setText(Integer.toString(numberS));
-							Pixel [][] matrixSahoo = image.convertBItoPM(imageSahooResult);
-							int sahooObjects = image.cuentaObjetos(matrixSahoo);
-							lso.setText(Integer.toString(sahooObjects));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				});
-				
-				panel6.add(btnLoadimage);
 				
 				JButton btnGetcentroide = new JButton("GetCentroide");
+				sl_panel6.putConstraint(SpringLayout.NORTH, btnGetcentroide, 10, SpringLayout.NORTH, panel6);
+				sl_panel6.putConstraint(SpringLayout.EAST, btnGetcentroide, -10, SpringLayout.EAST, panel6);
 				btnGetcentroide.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 //						
@@ -345,16 +159,16 @@ public class Tarea {
 ////						
 						BufferedImage imageLoad = null;
 						try {
-							imageLoad = BMPDecoder.read(new File("imagenes/IMAG001.BMP"));
+							imageLoad = BMPDecoder.read(new File("imagenes/IMAG0101.BMP"));
 							ImageIcon iconOriginal = new ImageIcon(imageLoad);
-							lbImage.setIcon(iconOriginal);
+							
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						try {
-							BufferedImage imageLoadOtsu = BMPDecoder.read(new File("imagenes/IMAG001.BMP"));
-							int number = image.otsuMagicMethod(imageLoadOtsu);
+							BufferedImage imageLoadOtsu = BMPDecoder.read(new File("imagenes/IMAG0101.BMP"));
+							int number = image.kittlerIllingworthMethod(imageLoadOtsu);
 							//int number = image.magicianSahooMethod(imageLoadOtsu,0.1);
 							BufferedImage imageOtsuResult = image.umbralIt(imageLoadOtsu, number);//150
 							
@@ -367,15 +181,23 @@ public class Tarea {
 							
 							for(int i=2; i<otsuObjectsEtiq+2; i++){
 								Point temp1= image.getCentroide(i);
-								imageOtsuResult = image.pintaCruz(temp1.x, temp1.y, imageOtsuResult);
+								imageOtsuResult = image.pintaCruz((int)temp1.x, (int)temp1.y, imageOtsuResult);
+
 								System.out.printf("Objeto %d: %f \n",i,image.getHu1(i));
 								System.out.printf("Objeto %d: %f \n",i,image.getHu2(i));
+								
+								System.out.printf("Objeto %d: %f \n",i,image.getFS1(i));
+								System.out.printf("Objeto %d: %f \n",i,image.getFS2(i));
+								System.out.printf("Objeto %d: %f \n",i,image.getFS3(i));
+								System.out.printf("Objeto %d: %f \n",i,image.getFS4(i));
+								
+								consoleArea.setText(consoleArea.getText()+"\n"+ "Hooola");
 							}
 							ImageIcon iconOtsu = new ImageIcon(imageOtsuResult);
-							lbImageOtsuResult.setIcon(iconOtsu);
 							
 							
 							
+							image.treat100Images();
 							
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
@@ -385,8 +207,8 @@ public class Tarea {
 						
 					}
 				});
-				sl_panel6.putConstraint(SpringLayout.NORTH, btnGetcentroide, 6, SpringLayout.SOUTH, lbImage);
-				sl_panel6.putConstraint(SpringLayout.EAST, btnGetcentroide, 0, SpringLayout.EAST, lblSahooValue);
+				
+				
 				panel6.add(btnGetcentroide);
 				JPanel panel7 = new JPanel();		
 				
@@ -620,23 +442,6 @@ public class Tarea {
 							image = ImageIO.read(new File("imagenes/IMAG001.BMP"));
 							ImageIcon icon = new ImageIcon(image);
 							lbImage7.setIcon(icon);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-						
-					}
-				});
-				
-				btnLoadimage.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent arg0) {
-						BufferedImage image;
-						try {
-							image = ImageIO.read(new File("imagenes/IMAG001.BMP"));
-							ImageIcon icon = new ImageIcon(image);
-							lbImage.setIcon(icon);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

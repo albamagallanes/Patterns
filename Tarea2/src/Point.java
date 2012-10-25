@@ -1,9 +1,9 @@
 
 public class Point {
 
-	int x,y;
+	double x,y;
 	
-	public Point(int x, int y ) {
+	public Point(double x, double y ) {
 		// TODO Auto-generated constructor stub
 		this.x = x;
 		this.y = y;

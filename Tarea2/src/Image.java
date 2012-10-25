@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.table.TableModel;
 
 import net.sf.image4j.codec.bmp.BMPDecoder;
@@ -233,18 +234,18 @@ public class Image {
 		int momento=0;
 		for(Pixel tempPixel : this.pixels){
 			if(tempPixel.value == objeto){
-				momento += (int) Math.pow(tempPixel.x, mi) * (int) Math.pow(tempPixel.y, mj);
+				momento += Math.pow(tempPixel.x, mi) *  Math.pow(tempPixel.y, mj);
 			}
 		}
 		return momento;
 	}
 	
-	public int calculaMiu(int mi, int mj, int objeto){
-		int miu=0;
+	public double calculaMiu(int mi, int mj, int objeto){
+		double miu=0;
 		Point w= getCentroide(objeto);
 		for(Pixel tempPixel : this.pixels){
 			if(tempPixel.value == objeto){
-				miu += (int) Math.pow(tempPixel.x-w.x, mi) * (int) Math.pow(tempPixel.y - w.y, mj);
+				miu +=  Math.pow(tempPixel.x-w.x, mi) *  Math.pow(tempPixel.y - w.y, mj);
 			}
 		}
 		return miu;
@@ -259,8 +260,8 @@ public class Image {
 		int m10 = this.calculaMomento(1,0,objeto);
 		int m01 = this.calculaMomento(0,1,objeto);
 
-		int centroideX =  m10/m00;
-		int centroideY =  m01/m00;
+		double centroideX =  m10/m00;
+		double centroideY =  m01/m00;
 		
 		Point tempPoint = new Point(centroideX, centroideY);
 		return tempPoint;
@@ -272,6 +273,73 @@ public class Image {
 	
 	public double getHu2(int objeto){
 		return Math.pow(calculaEta(2,0,objeto) - calculaEta(0,2,objeto),2) + (4* (Math.pow(calculaEta(1,1,objeto), 2)));  
+	}
+	
+	public double getFS1(int objeto){
+		double m00 =calculaMiu(0,0,objeto);
+		double m20 =calculaMiu(2,0,objeto);
+		double m02 =calculaMiu(0,2,objeto);
+		double m11 =calculaMiu(1,1,objeto);
+		
+		return ((m20 * m02) - Math.pow(m11, 2))/ Math.pow(m00, 4);
+	}
+	
+	public double getFS2(int objeto){
+		double m00 =calculaMiu(0,0,objeto);
+		double m30 =calculaMiu(3,0,objeto);
+		double m03 =calculaMiu(0,3,objeto);
+		double m12 =calculaMiu(1,2,objeto);
+		double m21 =calculaMiu(2,1,objeto);
+		
+		return ( (Math.pow(m30, 2)*Math.pow(m03, 2)) - 
+			   (6*m30*m21*m12*m03) +
+			   (4*m30*Math.pow(m12, 3)) +
+			   (4*Math.pow(m21, 3)*m03) -
+			   (3*Math.pow(m21, 2)*Math.pow(m12, 2)) )/
+			   Math.pow(m00, 10);
+	}
+	
+	public double getFS3(int objeto){
+		double m00 =calculaMiu(0,0,objeto);
+		double m11 =calculaMiu(1,1,objeto);
+		double m20 =calculaMiu(2,0,objeto);
+		double m02 =calculaMiu(0,2,objeto);
+		double m30 =calculaMiu(3,0,objeto);
+		double m03 =calculaMiu(0,3,objeto);
+		double m12 =calculaMiu(1,2,objeto);
+		double m21 =calculaMiu(2,1,objeto);
+	
+		return ( (m20*((m21*m03) - Math.pow(12, 2))) -
+				(m11*((m30*m03) - (m21*m12))) +
+				(m02*((m30*m12) - Math.pow(21, 2))))/
+				Math.pow(m00, 7);
+	}
+	
+	public double getFS4(int objeto){
+		double m00 =calculaMiu(0,0,objeto);
+		double m11 =calculaMiu(1,1,objeto);
+		double m20 =calculaMiu(2,0,objeto);
+		double m02 =calculaMiu(0,2,objeto);
+		double m30 =calculaMiu(3,0,objeto);
+		double m03 =calculaMiu(0,3,objeto);
+		double m12 =calculaMiu(1,2,objeto);
+		double m21 =calculaMiu(2,1,objeto);
+	
+		return  ( ((Math.pow(m20, 3)* Math.pow(m03, 2)) -
+				(6*Math.pow(m20, 2)*m11*m12*m03) -
+				(6*Math.pow(m20, 2)*m02*m21*m03) -
+				(9*Math.pow(m20, 2)*m02*Math.pow(m12, 2)) +
+				(12*m20*Math.pow(m11, 2)*m21*m03) +
+				(6*m20*m11*m02*m30*m03) -
+				(18*m20*m11*m02*m21*m12) -
+				(8*Math.pow(m11, 3)*m30*m03) -
+				(6*m20*Math.pow(m02, 2)*m30*m12) +
+				(9*m20*Math.pow(m02, 2)*m21) +
+				(12*Math.pow(11, 2)*m20*m30*m12) -
+				(6*m11*Math.pow(m02, 2)*m30*m21) +
+				(Math.pow(m02, 3)*Math.pow(m30, 2)) ) /
+				Math.pow(m00, 11)
+				);
 	}
 	
 	public void distingueVecindario(Pixel[][] pixelsMatrix){//simple conectado y multiple conectado
@@ -764,9 +832,58 @@ public class Image {
 	    return histo;
 	}
 	
+	public void treat100Images(){
+		System.out.println("Segmentar Imagenes");
+		for(int j=1; j<=5; j++){
+			for(int i=1; i<21; i++){
+				String name = Integer.toString(i);
+				if(name.length()==1){name = "0"+name;}
+				
+				String pathName= "imagenes/IMAG0"+j+name+".BMP"; 
+			
+				BufferedImage imageLoadOtsu = this.loadImage(pathName);
+				int number = this.kittlerIllingworthMethod(imageLoadOtsu);
+				//int number = image.magicianSahooMethod(imageLoadOtsu,0.1);
+				BufferedImage imageOtsuResult = this.umbralIt(imageLoadOtsu, number);//150
+				
+				//ImageIcon iconOtsu = new ImageIcon(imageOtsuResult);
+				//lbImageOtsuResult.setIcon(iconOtsu);
+				
+				Pixel [][] matrixOtsu = this.convertBItoPM(imageOtsuResult);
+
+				int otsuObjectsEtiq = this.etiquetaYCuenta(matrixOtsu);
+				
+				System.out.print(pathName+",");
+				//System.out.println("Object "+otsuObjectsEtiq);
+				int regionToBeCalculated=0;
+				int tempRegion=0;
+				
+				for(int w=2; w<otsuObjectsEtiq+2; w++){
+					int temp = this.calculaMomento(0, 0, w);
+					if(temp>tempRegion){
+						tempRegion = temp;
+						regionToBeCalculated = w;
+					}
+				}
+				
+				//System.out.print("Object "+regionToBeCalculated);
+				Point temp1= this.getCentroide(regionToBeCalculated);
+				imageOtsuResult = this.pintaCruz((int)temp1.x, (int)temp1.y, imageOtsuResult);
+				System.out.print(this.getHu1(regionToBeCalculated)+",");
+				System.out.print(this.getHu2(regionToBeCalculated)+",");
+				System.out.print(this.getFS1(regionToBeCalculated)+",");
+				System.out.print(this.getFS2(regionToBeCalculated)+",");
+				System.out.print(this.getFS3(regionToBeCalculated)+",");
+				System.out.println(this.getFS4(regionToBeCalculated)+",");
+			}
+		}
+	}
+	
+	
 	public void segmenta100Imagenes(){
 		System.out.println("Segmentar 100 Imagenes");
-		for(int i=1; i<101; i++){
+
+		for(int i=1; i<21; i++){
 			String name = Integer.toString(i);
 			if(name.length()==1){name = "00"+name;}
 			if(name.length()==2){name = "0"+name;}
@@ -813,7 +930,7 @@ public class Image {
 				}
 			}
 		}
-		return tags.size()-2;
+		return tags.size()-1;
 	}
 	
 	public BufferedImage pintaCruz(int x, int y, BufferedImage imagenOriginal){
