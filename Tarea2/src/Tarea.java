@@ -119,7 +119,7 @@ public class Tarea {
 	private void initialize() {
 		frmTarea = new JFrame();
 		frmTarea.setTitle("Tarea 2 - Alba Magallanes");
-		frmTarea.setBounds(100, 100, 802, 654);
+		frmTarea.setBounds(100, 100, 940, 654);
 		frmTarea.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Border border = LineBorder.createGrayLineBorder();
@@ -127,17 +127,138 @@ public class Tarea {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmTarea.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
+		JPanel panel1 = new JPanel();
+		
+		tabbedPane.add("Excercise1", panel1);
+		SpringLayout sl_panel1 = new SpringLayout();
+		panel1.setLayout(sl_panel1);
+		
+		JLabel lbl1 = new JLabel("Img1");
+		sl_panel1.putConstraint(SpringLayout.NORTH, lbl1, 10, SpringLayout.NORTH, panel1);
+		sl_panel1.putConstraint(SpringLayout.WEST, lbl1, 10, SpringLayout.WEST, panel1);
+		sl_panel1.putConstraint(SpringLayout.SOUTH, lbl1, 234, SpringLayout.NORTH, panel1);
+		sl_panel1.putConstraint(SpringLayout.EAST, lbl1, 311, SpringLayout.WEST, panel1);
+		panel1.add(lbl1);
+		
+		JLabel lbl2 = new JLabel("Img2");
+		sl_panel1.putConstraint(SpringLayout.NORTH, lbl2, 10, SpringLayout.NORTH, panel1);
+		sl_panel1.putConstraint(SpringLayout.WEST, lbl2, 6, SpringLayout.EAST, lbl1);
+		sl_panel1.putConstraint(SpringLayout.SOUTH, lbl2, 234, SpringLayout.NORTH, panel1);
+		sl_panel1.putConstraint(SpringLayout.EAST, lbl2, 307, SpringLayout.EAST, lbl1);
+		panel1.add(lbl2);
+		
+		JLabel lbl3 = new JLabel("Img3");
+		sl_panel1.putConstraint(SpringLayout.NORTH, lbl3, 6, SpringLayout.SOUTH, lbl1);
+		sl_panel1.putConstraint(SpringLayout.WEST, lbl3, 10, SpringLayout.WEST, panel1);
+		sl_panel1.putConstraint(SpringLayout.SOUTH, lbl3, 230, SpringLayout.SOUTH, lbl1);
+		sl_panel1.putConstraint(SpringLayout.EAST, lbl3, 0, SpringLayout.EAST, lbl1);
+		panel1.add(lbl3);
+		
+		JLabel lbl4 = new JLabel("Img4");
+		sl_panel1.putConstraint(SpringLayout.NORTH, lbl4, 31, SpringLayout.SOUTH, lbl2);
+		sl_panel1.putConstraint(SpringLayout.WEST, lbl4, 6, SpringLayout.EAST, lbl3);
+		sl_panel1.putConstraint(SpringLayout.SOUTH, lbl4, -112, SpringLayout.SOUTH, panel1);
+		sl_panel1.putConstraint(SpringLayout.EAST, lbl4, 0, SpringLayout.EAST, lbl2);
+		panel1.add(lbl4);
+		
+		JLabel lbl5 = new JLabel("Img5");
+		sl_panel1.putConstraint(SpringLayout.NORTH, lbl5, 131, SpringLayout.NORTH, panel1);
+		sl_panel1.putConstraint(SpringLayout.WEST, lbl5, 9, SpringLayout.EAST, lbl2);
+		sl_panel1.putConstraint(SpringLayout.SOUTH, lbl5, -246, SpringLayout.SOUTH, panel1);
+		sl_panel1.putConstraint(SpringLayout.EAST, lbl5, 305, SpringLayout.EAST, lbl4);
+		panel1.add(lbl5);
+		
+		
+		try {
+			BufferedImage imageLoad1 = BMPDecoder.read(new File("imagenes/IMAG0101.BMP"));
+			BufferedImage imageLoad2 = BMPDecoder.read(new File("imagenes/IMAG0201.BMP"));
+			BufferedImage imageLoad3 = BMPDecoder.read(new File("imagenes/IMAG0301.BMP"));
+			BufferedImage imageLoad4 = BMPDecoder.read(new File("imagenes/IMAG0401.BMP"));
+			BufferedImage imageLoad5 = BMPDecoder.read(new File("imagenes/IMAG0501.BMP"));
+			
+			int number1 = image.kittlerIllingworthMethod(imageLoad1);
+			BufferedImage imageResult1 = image.umbralIt(imageLoad1, number1);//150
+			Pixel [][] matrix1 = image.convertBItoPM(imageResult1);
+			int objectsEtiq1 = image.etiquetaYCuenta(matrix1);
+			
+			int regionToBeCalculated=0;
+			int tempRegion=0;
+			
+			for(int w=2; w<objectsEtiq1+2; w++){
+				int temp = image.calculaMomento(0, 0, w);
+				if(temp>tempRegion){
+					tempRegion = temp;
+					regionToBeCalculated = w;
+				}
+			}
+	
+			Point temp= image.getCentroide(regionToBeCalculated);
+			imageResult1 = image.pintaCruz((int)temp.x, (int)temp.y, imageResult1);
+		
+			
+			int number2 = image.kittlerIllingworthMethod(imageLoad2);
+			BufferedImage imageResult2 = image.umbralIt(imageLoad2, number2);//150
+			Pixel [][] matrix2 = image.convertBItoPM(imageResult2);
+			int objectsEtiq2 = image.etiquetaYCuenta(matrix2);
+			for(int i=2; i<objectsEtiq2+2; i++){
+				Point temp1= image.getCentroide(i);
+				imageResult2 = image.pintaCruz((int)temp1.x, (int)temp1.y, imageResult2);
+			}
+			
+			int number3 = image.kittlerIllingworthMethod(imageLoad3);
+			BufferedImage imageResult3 = image.umbralIt(imageLoad3, number3);//150
+			Pixel [][] matrix3 = image.convertBItoPM(imageResult3);
+			int objectsEtiq3 = image.etiquetaYCuenta(matrix3);
+			for(int i=2; i<objectsEtiq3+2; i++){
+				Point temp1= image.getCentroide(i);
+				imageResult3 = image.pintaCruz((int)temp1.x, (int)temp1.y, imageResult3);
+			}
+			
+			int number4 = image.kittlerIllingworthMethod(imageLoad4);
+			BufferedImage imageResult4 = image.umbralIt(imageLoad4, number4);//150
+			Pixel [][] matrix4 = image.convertBItoPM(imageResult4);
+			int objectsEtiq4 = image.etiquetaYCuenta(matrix4);
+			for(int i=2; i<objectsEtiq4+2; i++){
+				Point temp1= image.getCentroide(i);
+				imageResult4 = image.pintaCruz((int)temp1.x, (int)temp1.y, imageResult4);
+			}
+			
+			int number5 = image.kittlerIllingworthMethod(imageLoad5);
+			BufferedImage imageResult5 = image.umbralIt(imageLoad5, number5);//150
+			Pixel [][] matrix5 = image.convertBItoPM(imageResult5);
+			int objectsEtiq5 = image.etiquetaYCuenta(matrix5);
+			for(int i=2; i<objectsEtiq5+2; i++){
+				Point temp1= image.getCentroide(i);
+				imageResult5 = image.pintaCruz((int)temp1.x, (int)temp1.y, imageResult5);
+			}
+			
+			
+			ImageIcon iconO1 = new ImageIcon(imageResult1);
+			lbl1.setIcon(iconO1);
+			ImageIcon iconO2 = new ImageIcon(imageResult2);
+			lbl2.setIcon(iconO2);
+			ImageIcon iconO3 = new ImageIcon(imageResult3);
+			lbl3.setIcon(iconO3);
+			ImageIcon iconO4 = new ImageIcon(imageResult4);
+			lbl4.setIcon(iconO4);
+			ImageIcon iconO5 = new ImageIcon(imageResult5);
+			lbl5.setIcon(iconO5);
+			
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		
 		final JPanel panel6 = new JPanel();
-		tabbedPane.add("Excercise6", panel6);
+		tabbedPane.add("Excercise2", panel6);
+		
+		
 		
 		SpringLayout sl_panel6 = new SpringLayout();
 		panel6.setLayout(sl_panel6);
-				
-	
-
-
 		
 		final JTextArea consoleArea = new JTextArea();
 		sl_panel6.putConstraint(SpringLayout.NORTH, consoleArea, 71, SpringLayout.NORTH, panel6);
