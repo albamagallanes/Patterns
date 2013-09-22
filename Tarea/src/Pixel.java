@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class Pixel {
+public class PixelRo {
 
 	int value,x,y;
 	Pixel [] vecinitos = new Pixel [8];
