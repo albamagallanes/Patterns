@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Pixel {
 
+!#$@^@EFVDBGF
 	Vecino(Pixel pix){
 		int vecinoPlace = cualVecino(pix);
 		if(vecinoPlace< 8){
