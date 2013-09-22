@@ -15,6 +15,8 @@ import net.sf.image4j.codec.bmp.BMPDecoder;
 
 public class Image {
 
+kaspfuabejfn 1928473210573328!@$!#$^&
+
 	static ArrayList<Pixel> pixels = new ArrayList<Pixel>();
 	static ArrayList<Pixel> pixelsTemp = new ArrayList<Pixel>();
 	Pixel [][] publicMatrix = null;
