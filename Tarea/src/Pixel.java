@@ -3,8 +3,20 @@ import java.util.ArrayList;
 
 public class Pixel {
 
-!#$@^@EFVDBGF
-	Vecino(Pixel pix){
+
+	int value,x,y;
+	Pixel [] vecinitos = new Pixel [8];
+	Boolean isBoundary = false;
+	Boolean startPixel = false;
+	
+	public Pixel(int val, int posx,int posy) {
+		// TODO Auto-generated constructor stub
+		this.value = val;
+		this.x = posx;
+		this.y = posy;
+	}
+	
+	public void setVecino(Pixel pix){
 		int vecinoPlace = cualVecino(pix);
 		if(vecinoPlace< 8){
 			//System.out.println("Pix "+pix.x+","+pix.y+" es de "+this.x+","+this.y+" in "+vecinoPlace);
